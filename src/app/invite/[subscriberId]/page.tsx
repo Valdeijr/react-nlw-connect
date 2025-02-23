@@ -5,8 +5,15 @@ import InviteLink from './inviteLink'
 import Ranking from './ranking'
 import Stats from './stats'
 
-export default function Invite() {
-  const inviteLink = 'http://localhost:3000/invite/iddouser123123'
+interface InvitePageProps {
+  params: Promise<{
+    subscriberId: string
+  }>
+}
+
+export default async function Invite(props: InvitePageProps) {
+  const { subscriberId } = await props.params
+  const inviteLink = `http://localhost:3330/invites/${subscriberId}`
   return (
     <main className=" max-w-[1240px] mx-auto px-5 py-8 md:py-0">
       <div className="min-h-dvh flex items-center justify-between gap-16 flex-col md:flex-row">
@@ -23,7 +30,7 @@ export default function Invite() {
             </div>
             <InviteLink inviteLink={inviteLink} />
           </div>
-          <Stats />
+          <Stats subscriberId={subscriberId} />
         </div>
         <Ranking />
       </div>
